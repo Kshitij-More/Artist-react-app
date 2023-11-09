@@ -7,22 +7,25 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button, TextField } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { editUsers } from '../../features/users/usersSlice';
+export default function MuiTable({ users }) {
 
-export default function MuiTable({ users, }) {
-
-    const [editUser, setEditUser] = React.useState({ userName: '', isEdit: false });
+    const [editUser, setEditUser] = React.useState({ userName: '' });
 
     const [updateName, setUpdateName] = React.useState('');
-
+   const dispatch= useDispatch();
     function editHandler(id) {
         setEditUser((prevState) => {
-            return { ...prevState, userName: users[id - 1].userName, isEdit: true }
+            return { ...prevState, userName: users[id - 1].userName, id:id }
         });
         setUpdateName(users[id - 1].userName);
     }
 
     function handleSave(id){
-        
+         dispatch(editUsers(id,updateName));
+         console.log("UsersMUI",users);
+         setEditUser("");
     }
 
 
@@ -55,7 +58,7 @@ export default function MuiTable({ users, }) {
 
                                 
                                 {
-                                    editUser.isEdit ?
+                                   editUser.hasOwnProperty("id") && editUser.id===row.id ?
                                     <>
                                         <TextField type='text' value={updateName}
                                             onChange={(e) => setUpdateName(e.target.value)}
