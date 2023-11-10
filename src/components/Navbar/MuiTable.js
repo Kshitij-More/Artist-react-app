@@ -18,7 +18,7 @@ export default function MuiTable({ users, type }) {
   const [editUser, setEditUser] = React.useState({ userName: "" });
 
   const [updateName, setUpdateName] = React.useState("");
-
+ console.log("album",users);
   function editHandler(id) {
     let name = users.filter((user) => user.id == id)[0].userName;
     setEditUser((prevState) => {
@@ -73,6 +73,13 @@ export default function MuiTable({ users, type }) {
             >
               {type} Name
             </TableCell>
+            {type==="album" && <TableCell
+              align="center"
+              style={{ color: "rgba(255, 255, 255, 0.7)" }}
+            >
+             Artist Name
+            </TableCell>
+            }
             <TableCell
               align="center"
               style={{ color: "rgba(255, 255, 255, 0.7)" }}
@@ -112,6 +119,7 @@ export default function MuiTable({ users, type }) {
                     row.userName
                   )}
                 </TableCell>
+                {type==="album" &&  <TableCell align="center">{row.artist}</TableCell>}
                 <TableCell align="center">
                   <Button
                     variant="contained"
