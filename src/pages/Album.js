@@ -23,9 +23,11 @@ function Album() {
   const dispatch = useDispatch();
 
   function addUserHandler() {
-    dispatch(addAlbums(userName, selectedUser, selectedArtist));
-    setUserName("");
-    console.log("album", album);
+    if (userName !== "" && selectedUser !== "" && selectedArtist !== "") {
+      dispatch(addAlbums(userName, selectedUser, selectedArtist));
+      setUserName("");
+      console.log("album", album);
+    }
   }
   // function handleGetArtistUsers(user, type) {
   //   if (type === "user") {

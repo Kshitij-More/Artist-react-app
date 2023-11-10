@@ -12,8 +12,11 @@ const Users = () => {
   const dispatch = useDispatch();
 
   function addUserHandler() {
-    dispatch(addUser(userName));
-    setUserName('');
+    if(userName!==""){
+      dispatch(addUser(userName));
+      setUserName('');
+    }
+    
   }
 
   const users = useSelector(store => store.user);
