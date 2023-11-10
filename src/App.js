@@ -18,7 +18,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={ <HomePages />}>
-            <Route path="user" element={<Users />} />
+            <Route path="user"  element={<Users />} />
+            <Route index  element={<Users />} />
             <Route path="artist" element={<Artist />} />
             <Route path="album" element={<Album />} />
             <Route path="usersRating" element={<UsersRating/>} />

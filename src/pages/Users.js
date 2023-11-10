@@ -17,7 +17,7 @@ const Users = () => {
   }
 
   const users = useSelector(store => store.user);
-  console.log("Users", users);
+  // console.log("Users", users);
 
   return (
     <Container style={{ marginLeft: '320px' }}>
@@ -36,7 +36,7 @@ const Users = () => {
           </form>
         </CardContent>
       </Card>
-      <MuiTable users={users}/>
+      <MuiTable users={users} type="user"/>
     </Container>
   )
 }

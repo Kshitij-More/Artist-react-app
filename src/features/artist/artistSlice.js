@@ -1,18 +1,18 @@
 
-const intialStateUsers = [];
+const intialStateArtist = [];
 
-export default function userReducer(state = intialStateUsers, action) {
+export default function artistReducer(state = intialStateArtist, action) {
     switch (action.type) {
-        case 'user/addUser':
+        case 'artist/addArtists':
             return [...state, { id: Date.now(), userName: action.payload }];
 
-        case 'user/editUsers':
+        case 'artist/editArtists':
             state.splice(state.indexOf(...state.filter((data) => data.id === action.payload.id)), 1, {
                 id: action.payload.id,
                 userName: action.payload.userName
             });
             return state;
-        case "user/deleteUsers":
+        case "artist/deleteArtists":
             let updated = [...state]
             updated.splice(state.indexOf(...state.filter((data) => data.id === action.payload)), 1);
             return updated;
@@ -21,13 +21,13 @@ export default function userReducer(state = intialStateUsers, action) {
 
 }
 
-export function addUser(userName) {
-    return { type: 'user/addUser', payload: userName }
+export function addArtists(userName) {
+    return { type: 'artist/addArtists', payload: userName }
 }
 
-export function editUsers(id, userName) {
-    return { type: 'user/editUsers', payload: { id: id, userName: userName } }
+export function editArtists(id, userName) {
+    return { type: 'artist/editArtists', payload: { id: id, userName: userName } }
 }
-export function deleteUsers(id) {
-    return { type: 'user/deleteUsers', payload: id }
+export function deleteArtists(id) {
+    return { type: 'artist/deleteArtists', payload: id }
 }
