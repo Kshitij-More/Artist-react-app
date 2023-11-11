@@ -10,6 +10,7 @@ export default function albumReducer(state = intialStateAlbums, action) {
           userName: action.payload.album,
           user: action.payload.user,
           artist: action.payload.artist,
+          rating: 0,
         },
       ];
 
@@ -30,6 +31,20 @@ export default function albumReducer(state = intialStateAlbums, action) {
         1
       );
       return updated;
+    case "album/changeRating":
+      let updateds = [...state];
+      updateds.splice(
+        state.indexOf(...state.filter((data) => data.id === action.payload.id)),
+        1,
+        {
+          id: action.payload.id,
+          userName: action.payload.album,
+          user: action.payload.user,
+          artist: action.payload.artist,
+          rating: action.payload.rating,
+        }
+      );
+      return updateds;
     default:
       return state;
   }
@@ -47,4 +62,17 @@ export function editAlbums(id, userName) {
 }
 export function deleteAlbums(id) {
   return { type: "album/deleteAlbums", payload: id };
+}
+
+export function changeRating(id, rating, album, user, artist) {
+  return {
+    type: "album/changeRating",
+    payload: {
+      id: id,
+      rating: rating,
+      album: album,
+      user: user,
+      artist: artist,
+    },
+  };
 }

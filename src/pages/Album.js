@@ -29,14 +29,7 @@ function Album() {
       console.log("album", album);
     }
   }
-  // function handleGetArtistUsers(user, type) {
-  //   if (type === "user") {
-  //     setGetUser(user);
-  //   } else {
-  //     setGetArtist(user);
-  //   }
-  //   console.log("USER",user);
-  // }
+  
 
   return (
     <>

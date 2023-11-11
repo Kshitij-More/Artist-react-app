@@ -10,6 +10,7 @@ export default function SelectType({
   type,
   setSelectedUser,
   selectedUser,
+  setSelectedUserInAlbum,
   setSelectedArtist,
 }) {
   // console.log("select", users);
@@ -19,8 +20,10 @@ export default function SelectType({
 
     if (type === "user") {
       setSelectedUser(() => event.target.value);
-    } else {
+    } else if (type==="artist"){
       setSelectedArtist(() => event.target.value);
+    }else{
+      setSelectedUserInAlbum(()=>event.target.value);
     }
   };
 
