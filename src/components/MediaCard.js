@@ -7,14 +7,16 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Ratings from "./Ratings";
 import image from "./movie_image.jpg";
-export default function MediaCard({ album, artist ,user,id, rating }) {
+export default function MediaCard({ album, artist, user, id, rating }) {
   return (
     <Card
       sx={{
-        marginLeft: 5,
+        marginLeft:7,
         marginTop: 5,
-        maxWidth: 345,
-        minWidth: 200,
+        maxWidth: 240,
+        minWidth: 240,
+        backgroundColor: "#101F33",
+        color: "rgba(255, 255, 255, 0.7)",
       }}
     >
       <CardContent>
@@ -22,16 +24,16 @@ export default function MediaCard({ album, artist ,user,id, rating }) {
           {album}
         </Typography>
       </CardContent>
-      <CardMedia
-        sx={{ height: 130 }}
-        image={image}
-        title="green iguana"
-      />
+      <CardMedia sx={{ height: 130 }} image={image} title="green iguana" />
       <CardContent>
-        <Ratings  album={album} artist={artist} user={user} id={id} rating={rating} ></Ratings>
-        <Typography variant="body2" color="text.secondary">
-          {artist}
-        </Typography>
+        <Ratings
+          album={album}
+          artist={artist}
+          user={user}
+          id={id}
+          rating={rating}
+        ></Ratings>
+        <Typography variant="body2">{artist}</Typography>
       </CardContent>
       <CardActions>
         {/* <Button size="small">Share</Button>

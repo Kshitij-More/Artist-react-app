@@ -8,17 +8,17 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Button, TextField } from "@mui/material";
 import { editUsers, deleteUsers } from "../../features/users/usersSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteArtists, editArtists } from "../../features/artist/artistSlice";
 import { deleteAlbums, editAlbums } from "../../features/albums/albumSlice";
 
 export default function MuiTable({ users, type }) {
   const dispatch = useDispatch();
-
+  const album = useSelector((store) => store.album);
   const [editUser, setEditUser] = React.useState({ userName: "" });
 
   const [updateName, setUpdateName] = React.useState("");
- console.log("album",users);
+  console.log("album", users);
   function editHandler(id) {
     let name = users.filter((user) => user.id == id)[0].userName;
     setEditUser((prevState) => {
@@ -28,11 +28,18 @@ export default function MuiTable({ users, type }) {
     setUpdateName(name);
   }
 
-  function handleSave(id) {
+  function handleSave(id, userName, user, artist) {
     if (type === "album") {
-      dispatch(editAlbums(id, updateName));
+      dispatch(editAlbums(id, updateName, artist, user));
     } else if (type === "artist") {
+      const albumData = album.filter((data) => data.artist === userName)[0];
+      // console.log("Album Data", album);
+      // console.log("artist", userName);
+
+      // console.log("Album DATATA:", albumData);
+
       dispatch(editArtists(id, updateName));
+      dispatch(editAlbums(id, albumData.userName, updateName, user));
     } else {
       dispatch(editUsers(id, updateName));
     }
@@ -73,13 +80,14 @@ export default function MuiTable({ users, type }) {
             >
               {type} Name
             </TableCell>
-            {type==="album" && <TableCell
-              align="center"
-              style={{ color: "rgba(255, 255, 255, 0.7)" }}
-            >
-             Artist Name
-            </TableCell>
-            }
+            {type === "album" && (
+              <TableCell
+                align="center"
+                style={{ color: "rgba(255, 255, 255, 0.7)" }}
+              >
+                Artist Name
+              </TableCell>
+            )}
             <TableCell
               align="center"
               style={{ color: "rgba(255, 255, 255, 0.7)" }}
@@ -109,7 +117,12 @@ export default function MuiTable({ users, type }) {
                       <Button
                         variant="contained"
                         onClick={(e) => {
-                          handleSave(row.id);
+                          handleSave(
+                            row.id,
+                            row.userName,
+                            row.user,
+                            row.artist
+                          );
                         }}
                       >
                         Save
@@ -119,7 +132,9 @@ export default function MuiTable({ users, type }) {
                     row.userName
                   )}
                 </TableCell>
-                {type==="album" &&  <TableCell align="center">{row.artist}</TableCell>}
+                {type === "album" && (
+                  <TableCell align="center">{row.artist}</TableCell>
+                )}
                 <TableCell align="center">
                   <Button
                     variant="contained"
