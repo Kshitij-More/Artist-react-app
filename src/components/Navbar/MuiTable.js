@@ -28,18 +28,30 @@ export default function MuiTable({ users, type }) {
     setUpdateName(name);
   }
 
-  function handleSave(id, userName, user, artist) {
+  function handleSave(id, userName, user, artist, rating) {
     if (type === "album") {
-      dispatch(editAlbums(id, updateName, artist, user));
+      dispatch(editAlbums(id, updateName, artist, user, rating));
+      // dispatch(changeRating(id, newValue, album, user, artist));
     } else if (type === "artist") {
-      const albumData = album.filter((data) => data.artist === userName)[0];
-      // console.log("Album Data", album);
+      const albumData = album.filter((data) => data.artist === userName);
+      console.log("Album Data", album);
+      // console.log(id);
+
       // console.log("artist", userName);
 
       // console.log("Album DATATA:", albumData);
-
       dispatch(editArtists(id, updateName));
-      dispatch(editAlbums(id, albumData.userName, updateName, user));
+      albumData.map((albumData) =>
+        dispatch(
+          editAlbums(
+            albumData.id,
+            albumData.userName,
+            updateName,
+            albumData.user,
+            albumData.rating
+          )
+        )
+      );
     } else {
       dispatch(editUsers(id, updateName));
     }
@@ -121,7 +133,8 @@ export default function MuiTable({ users, type }) {
                             row.id,
                             row.userName,
                             row.user,
-                            row.artist
+                            row.artist,
+                            row.rating
                           );
                         }}
                       >

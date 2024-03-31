@@ -23,7 +23,8 @@ export default function albumReducer(state = intialStateAlbums, action) {
           id: action.payload.id,
           user:action.payload.user,
           userName: action.payload.userName,
-          artist:action.payload.artist
+          artist:action.payload.artist,
+          rating:action.payload.rating
         }
       );
       return editData;
@@ -60,8 +61,8 @@ export function addAlbums(userName, user, artist) {
   };
 }
 
-export function editAlbums(id, userName,artist,user) {
-  return { type: "album/editAlbums", payload: { id: id,user:user, userName: userName,artist:artist } };
+export function editAlbums(id, userName,artist,user,rating) {
+  return { type: "album/editAlbums", payload: { id: id,user:user, userName: userName,artist:artist,rating:rating } };
 }
 export function deleteAlbums(id) {
   return { type: "album/deleteAlbums", payload: id };
